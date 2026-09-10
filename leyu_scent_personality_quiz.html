@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>樂嶼香氛｜尋香・識己</title>
+<meta name="description" content="樂嶼香氛｜尋香・識己——透過香氣人格測驗，找到屬於你的命定香。">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
+
+:root{
+  --navy:#101d3b;
+  --navy2:#17284d;
+  --cream:#f7f3eb;
+  --paper:#fffdf8;
+  --gold:#c6a15b;
+  --gold2:#e4cf9d;
+  --ink:#263047;
+  --muted:#7d8493;
+  --line:#e8e2d7;
+  --shadow:0 20px 60px rgba(16,29,59,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:"Noto Sans TC",sans-serif;line-height:1.8;
+}
+button{font:inherit}
+.hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:48px 22px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(198,161,91,.20), transparent 28%),
+    radial-gradient(circle at 12% 88%, rgba(228,207,157,.16), transparent 25%),
+    var(--navy);
+  color:white;
+}
+.hero:before,.hero:after{
+  content:"";position:absolute;border:1px solid rgba(228,207,157,.28);
+  border-radius:50%;width:520px;height:520px;
+}
+.hero:before{right:-260px;top:-240px}
+.hero:after{left:-310px;bottom:-300px}
+.hero-inner{max-width:900px;text-align:center;position:relative;z-index:2}
+.brand{
+  letter-spacing:.35em;font-size:12px;color:var(--gold2);margin-bottom:35px;
+}
+.hero h1{
+  font-family:"Playfair Display","Noto Sans TC",serif;
+  font-size:clamp(48px,8vw,92px);font-weight:500;letter-spacing:.05em;
+  margin:0 0 8px;
+}
+.hero .cn{
+  font-size:clamp(20px,3vw,30px);letter-spacing:.35em;margin-left:.35em;
+}
+.hero p{max-width:620px;margin:28px auto 42px;color:#dfe4ef;font-weight:300}
+.btn{
+  border:1px solid var(--gold);background:var(--gold);color:var(--navy);
+  padding:13px 34px;border-radius:999px;cursor:pointer;font-weight:600;
+  transition:.25s;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.btn.ghost{background:transparent;color:white}
+.section{max-width:920px;margin:0 auto;padding:70px 22px}
+.progress-wrap{position:sticky;top:0;z-index:20;background:rgba(247,243,235,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.progress-inner{max-width:920px;margin:auto;padding:12px 22px;display:flex;align-items:center;gap:15px}
+.progress-label{font-size:12px;color:var(--muted);white-space:nowrap}
+.progress{height:4px;background:#e5dfd4;border-radius:99px;flex:1;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--gold);transition:.4s}
+.card{
+  background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);
+  border-radius:26px;padding:42px;
+}
+.eyebrow{font-size:11px;letter-spacing:.28em;color:var(--gold);font-weight:600}
+h2{font-size:30px;line-height:1.35;margin:8px 0 28px;color:var(--navy)}
+.question-no{font-family:"Playfair Display",serif;color:var(--gold);font-size:22px}
+.question{font-size:23px;font-weight:600;line-height:1.55;margin:8px 0 25px;color:var(--navy)}
+.options{display:grid;gap:12px}
+.option{
+  display:flex;align-items:flex-start;gap:14px;text-align:left;width:100%;
+  background:white;border:1px solid var(--line);border-radius:15px;padding:17px 18px;
+  cursor:pointer;transition:.2s;color:var(--ink);
+}
+.option:hover{border-color:var(--gold);transform:translateY(-1px)}
+.option.selected{border-color:var(--gold);background:#fbf7ee;box-shadow:0 0 0 2px rgba(198,161,91,.15)}
+.option .letter{
+  width:28px;height:28px;border-radius:50%;border:1px solid #d8d0c2;
+  display:grid;place-items:center;flex:none;font-size:12px;color:var(--navy);
+}
+.option.selected .letter{background:var(--gold);border-color:var(--gold);color:white}
+.option strong{display:block;margin-bottom:2px;font-weight:500}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
+.hidden{display:none!important}
+.intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:35px}
+.mini{padding:25px;border:1px solid rgba(228,207,157,.25);border-radius:18px;background:rgba(255,255,255,.04)}
+.mini b{display:block;color:var(--gold2);margin-bottom:5px}
+.result{
+  background:var(--navy);color:white;border-radius:28px;padding:50px;
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.result:after{content:"";position:absolute;width:340px;height:340px;border:1px solid rgba(228,207,157,.18);border-radius:50%;right:-150px;top:-130px}
+.result-content{position:relative;z-index:2}
+.result .type{color:var(--gold2);letter-spacing:.18em;font-size:13px}
+.result h3{font-family:"Playfair Display","Noto Sans TC",serif;font-size:46px;font-weight:500;margin:10px 0 0}
+.result .scent{font-size:22px;letter-spacing:.12em;color:white;margin:12px 0 22px}
+.result .desc{color:#dce2ee;max-width:700px}
+.notes{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}
+.note{border:1px solid rgba(228,207,157,.4);color:var(--gold2);padding:6px 12px;border-radius:99px;font-size:12px}
+.result-box{margin-top:30px;padding:20px;border-left:2px solid var(--gold);background:rgba(255,255,255,.05)}
+.result-box b{color:var(--gold2)}
+.secondary{
+  background:white;color:var(--ink);border:1px solid var(--line);border-radius:20px;
+  padding:25px;margin-top:18px;
+}
+.secondary h4{margin:0 0 6px;color:var(--navy)}
+.footer{text-align:center;color:#8a8d96;font-size:12px;padding:35px 20px 60px}
+@media(max-width:700px){
+  .card,.result{padding:28px 20px;border-radius:20px}
+  .intro-grid{grid-template-columns:1fr}
+  .question{font-size:20px}
+  .result h3{font-size:38px}
+  .nav .btn{padding:11px 20px}
+}
+</style>
+</head>
+<body>
+
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="brand">LEYU INTERNATIONAL FRAGRANCE</div>
+    <h1>尋香・識己</h1>
+    <div class="cn">找到屬於你的命定香</div>
+    <p>
+      香氣沒有標準答案。<br>
+      用 8 個直覺選擇，探索你的香氣人格，
+      最後找到一款最貼近你的命定香。
+    </p>
+    <button class="btn" onclick="startTest()">開始尋香</button>
+    <div class="intro-grid">
+      <div class="mini"><b>01｜探索</b>從日常選擇認識自己</div>
+      <div class="mini"><b>02｜感受</b>找到你的香氣性格</div>
+      <div class="mini"><b>03｜揭曉</b>探索你的命定香</div>
+    </div>
+  </div>
+</section>
+
+<div class="progress-wrap hidden" id="progressWrap">
+  <div class="progress-inner">
+    <span class="progress-label" id="progressLabel">第 1 題／共 8 題</span>
+    <div class="progress"><i id="progressBar"></i></div>
+  </div>
+</div>
+
+<main class="section hidden" id="test">
+  <div class="card">
+    <div class="eyebrow">YOUR SCENT PERSONALITY</div>
+    <div class="question-no" id="qNo">01</div>
+    <div class="question" id="qText"></div>
+    <div class="options" id="options"></div>
+    <div class="nav">
+      <button class="btn ghost" id="prevBtn" onclick="prevQuestion()" style="color:var(--navy);border-color:var(--line);">上一題</button>
+      <button class="btn" id="nextBtn" onclick="nextQuestion()">下一題</button>
+    </div>
+  </div>
+</main>
+
+<section class="section hidden" id="resultSection">
+  <div class="result">
+    <div class="result-content">
+      <div class="type">YOUR SCENT PERSONALITY</div>
+      <h3 id="resultType"></h3>
+      <div class="scent" id="resultScent"></div>
+      <div class="desc" id="resultDesc"></div>
+      <div class="notes" id="resultNotes"></div>
+      <div class="result-box">
+        <b>你的命定香</b><br>
+        <span id="resultQuote"></span>
+      </div>
+      <div style="margin-top:28px">
+        <button class="btn" onclick="restart()">重新測驗</button>
+      </div>
+    </div>
+  </div>
+  <div class="secondary">
+    <h4>香氣小提醒</h4>
+    <div id="resultAdvice"></div>
+  </div>
+</section>
+
+<div class="footer">
+  樂嶼國際香氛 LEYU INTERNATIONAL FRAGRANCE<br>
+  源自法國格拉斯的香氣美學
+</div>
+
+<script>
+const questions = [
+ {q:"如果今天完全沒有行程，你最想怎麼度過？", a:[
+  "找個地方走走，曬曬太陽，讓自己重新充電",
+  "去一間神秘的小店，探索沒去過的地方",
+  "找間漂亮的咖啡館，慢慢享受一個人的時間",
+  "臨時起意來一趟說走就走的旅程",
+  "待在舒服的空間裡，看書、聽音樂、喝杯酒",
+  "找朋友喝茶聊天，享受自在而有深度的交流",
+  "打扮得漂亮一點，去一個有氛圍的地方"
+ ]},
+ {q:"第一次進入一間高級飯店，你最容易注意什麼？", a:[
+  "大面窗景與明亮的採光","空間裡若有若無的神秘香氣",
+  "花藝、軟裝與細節","特別的設計與令人印象深刻的裝飾",
+  "木質、石材與整體材質的質感","空間是否安靜、舒服、讓人放鬆",
+  "整體氛圍是否有品味、經典而不退流行"
+ ]},
+ {q:"朋友通常怎麼形容你？", a:[
+  "很有活力，跟你在一起很開心","有點神秘，很難完全看透",
+  "很細膩，也很懂得感受別人的情緒","很有自己的想法，不太隨波逐流",
+  "穩重可靠，而且很有自己的品味","理性、溫和，遇到事情很從容",
+  "很有魅力，而且越認識越有味道"
+ ]},
+ {q:"如果你的個性是一種穿搭，你會選？", a:[
+  "白襯衫＋休閒鞋，簡單俐落","深色系＋一件讓人猜不透的配件",
+  "柔和色系＋精緻小細節","特別剪裁或強烈風格的單品",
+  "高質感材質＋經典剪裁","素雅色系＋乾淨舒適的質感",
+  "經典款＋一件很有個人魅力的配件"
+ ]},
+ {q:"以下哪一句最接近你？", a:[
+  "想到就去做，人生不要等。","有些事，不需要讓所有人知道。",
+  "我相信感覺，而且很重視心動的瞬間。","與其跟著別人，我更想走自己的路。",
+  "真正的質感，不需要刻意張揚。","慢一點，反而能看見更多細節。",
+  "經典之所以經典，是因為它永遠有魅力。"
+ ]},
+ {q:"如果選一個地方代表你的內心，你會選？", a:[
+  "清晨的海邊","夜晚的異國街道","盛開的玫瑰花園",
+  "一座充滿故事的古老城市","木質調的私人書房",
+  "午後茶席與安靜庭院","老派卻迷人的精品酒吧"
+ ]},
+ {q:"你希望自己留給別人的第一印象是？", a:[
+  "充滿能量","讓人想再多了解一點","親切而令人喜歡",
+  "有個性、有記憶點","穩重、有質感","優雅、舒服、沒有距離感",
+  "成熟、有魅力"
+ ]},
+ {q:"最後一題，不要想太久，憑直覺選一個字。", a:[
+  "光","謎","花","火","木","茶","夜"
+ ]}
+];
+
+const results = [
+ {type:"耀眼行動派", scent:"《阿波羅最後的戰役》", notes:["柑橘調","葡萄柚","羅勒","檀香"],
+  desc:"你喜歡明亮、自由與充滿能量的感受。你不一定需要成為人群中最喧鬧的人，但總有自己的節奏，也願意把想法化成行動。",
+  quote:"你的香氣，像一道明亮的光，先讓人感受到你，再讓人記住你。",
+  advice:"試著在衣物、窗簾或空間布料上感受這款香氣，明亮的葡萄柚與羅勒會先帶出清爽感，最後由檀香留下溫潤底蘊。"
+ },
+ {type:"神秘魅惑派", scent:"《荷米斯仙境》", notes:["東方調","牡丹","玫瑰","黑胡椒"],
+  desc:"你有自己的神秘感，不習慣把所有答案一次交給別人。你重視氛圍，也喜歡那些需要慢慢靠近、才能發現細節的事物。",
+  quote:"你的香氣，不急著說明自己，而是讓人忍不住想再靠近一點。",
+  advice:"牡丹與玫瑰帶來柔美開場，黑胡椒則讓香氣多一點辛香張力，適合想留下鮮明記憶的人。"
+ },
+ {type:"浪漫感知派", scent:"《丘比特的花房》", notes:["花香調","荔枝","紫羅蘭","橡木苔"],
+  desc:"你對細節與情緒特別敏銳。你相信喜歡是一種感受，也很在意那些不經意卻會讓人心動的瞬間。",
+  quote:"你的香氣，像一座只在熟悉的人面前盛開的花房。",
+  advice:"荔枝的輕甜、紫羅蘭的柔和與橡木苔的深度，讓花香不只甜美，也多了一點成熟與層次。"
+ },
+ {type:"大膽個性派", scent:"《阿瑞斯的勇氣》", notes:["西普調","佛手柑","大麻香調","依蘭"],
+  desc:"你不喜歡被定義，也不害怕與眾不同。比起迎合標準，你更在意自己的選擇是否真的代表自己。",
+  quote:"你的香氣，不需要討好所有人，只需要讓懂的人一聞就記住。",
+  advice:"佛手柑先帶出俐落明亮感，中段的特殊氣息與依蘭形成個性鮮明的轉折，適合喜歡獨特感的人。"
+ },
+ {type:"沉穩品味派", scent:"《酒神的饗宴》", notes:["木質調","小荳蔻","鳶尾花","雪松"],
+  desc:"你相信真正的質感不需要刻意張揚。你重視材質、比例與細節，喜歡經得起時間的選擇。",
+  quote:"你的香氣，像一間懂得留白的空間，安靜，卻很有存在感。",
+  advice:"小荳蔻帶來細緻辛香，鳶尾花柔化中段，最後以雪松收尾，呈現沉穩而有質感的木質氣息。"
+ },
+ {type:"知性從容派", scent:"《雅典娜的盾牌》", notes:["草本調","蜂蜜","烏龍茶","龍涎香"],
+  desc:"你喜歡舒服而有深度的關係與空間。比起快速得到答案，你更享受慢慢觀察、理解，再做出選擇。",
+  quote:"你的香氣，像午後的一席茶，安靜、溫潤，卻讓人願意久坐。",
+  advice:"蜂蜜與烏龍茶帶出柔和茶韻，龍涎香讓尾韻更完整，適合喜歡知性、沉靜氣息的人。"
+ },
+ {type:"經典魅力派", scent:"《宙斯的誕生》", notes:["馥奇調","真正薰衣草","天竺葵","香豆素"],
+  desc:"你有成熟而自然的魅力。你欣賞經典，但不會被經典限制；你知道自己的風格，也知道什麼值得長久留下。",
+  quote:"你的香氣，是時間留下的風格，越靠近，越能感受到魅力。",
+  advice:"真正薰衣草與天竺葵建立清晰優雅的骨架，香豆素帶來柔和溫暖的尾韻，經典而不失個性。"
+ }
+];
+
+let current=0;
+let answers=Array(questions.length).fill(null);
+
+function startTest(){
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("progressWrap").classList.remove("hidden");
+ document.getElementById("test").classList.remove("hidden");
+ window.scrollTo({top:0,behavior:"smooth"});
+ renderQuestion();
+}
+function renderQuestion(){
+ const q=questions[current];
+ document.getElementById("qNo").textContent=String(current+1).padStart(2,"0");
+ document.getElementById("qText").textContent=q.q;
+ document.getElementById("progressLabel").textContent=`第 ${current+1} 題／共 ${questions.length} 題`;
+ document.getElementById("progressBar").style.width=((current+1)/questions.length*100)+"%";
+ const box=document.getElementById("options"); box.innerHTML="";
+ q.a.forEach((text,i)=>{
+   const b=document.createElement("button");
+   b.className="option"+(answers[current]===i?" selected":"");
+   b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span><strong>${text}</strong></span>`;
+   b.onclick=()=>{answers[current]=i; renderQuestion();};
+   box.appendChild(b);
+ });
+ document.getElementById("prevBtn").style.visibility=current===0?"hidden":"visible";
+ document.getElementById("nextBtn").textContent=current===questions.length-1?"查看結果":"下一題";
+}
+function nextQuestion(){
+ if(answers[current]===null){alert("請先選擇一個答案，再繼續尋香。");return;}
+ if(current<questions.length-1){current++;renderQuestion();window.scrollTo({top:0,behavior:"smooth"});}
+ else showResult();
+}
+function prevQuestion(){
+ if(current>0){current--;renderQuestion();window.scrollTo({top:0,behavior:"smooth"});}
+}
+function showResult(){
+ const scores=Array(7).fill(0);
+ answers.forEach(a=>{if(a!==null)scores[a]++;});
+ let max=Math.max(...scores);
+ let winners=scores.map((v,i)=>v===max?i:-1).filter(i=>i>=0);
+ // 同分時以最後一題直覺選擇決勝；若仍有多個，取較前者。
+ let winner=winners.includes(answers[7])?answers[7]:winners[0];
+ const r=results[winner];
+ document.getElementById("test").classList.add("hidden");
+ document.getElementById("progressWrap").classList.add("hidden");
+ document.getElementById("resultSection").classList.remove("hidden");
+ document.getElementById("resultType").textContent=r.type;
+ document.getElementById("resultScent").textContent=r.scent;
+ document.getElementById("resultDesc").textContent=r.desc;
+ document.getElementById("resultQuote").textContent=r.quote;
+ document.getElementById("resultAdvice").textContent=r.advice;
+ document.getElementById("resultNotes").innerHTML=r.notes.map(n=>`<span class="note">${n}</span>`).join("");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){
+ current=0;answers=Array(questions.length).fill(null);
+ document.getElementById("resultSection").classList.add("hidden");
+ document.getElementById("home").classList.remove("hidden");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+</script>
+</body>
+</html>
